@@ -10,6 +10,17 @@
     "type": "git",
     "url": "git+https://github.com/RenanDC/TesteCleanCode.git"
   },
+  "lint-staged": {
+    "*.js": [
+      "standard --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -17,6 +28,8 @@
   },
   "homepage": "https://github.com/RenanDC/TesteCleanCode#readme",
   "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.7",
     "standard": "^16.0.4"
   }
 }
