@@ -1,0 +1,22 @@
+{
+  "name": "testecleancode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RenanDC/TesteCleanCode.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RenanDC/TesteCleanCode/issues"
+  },
+  "homepage": "https://github.com/RenanDC/TesteCleanCode#readme",
+  "devDependencies": {
+    "standard": "^16.0.4"
+  }
+}
