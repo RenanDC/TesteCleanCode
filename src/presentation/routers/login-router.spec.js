@@ -1,4 +1,5 @@
 const MissingParamError = require("../helpers/missingParamError")
+const UnauthorizedError = require("../helpers/unauthorizedError")
 const LoginRouter = require("./login-router")
 
 //factory DesignPattern
@@ -74,5 +75,20 @@ describe('Login Router', () => {
         sut.route(httpRequest)
         expect(authUseCaseSpy.email).toBe(httpRequest.body.email)
         expect(authUseCaseSpy.password).toBe(httpRequest.body.password)
+    })
+})
+
+describe('Login Router', () => {
+    test('Should return 401 when invalid credentials', () => {
+        const { sut } = makeSut()
+        const httpRequest = {
+            body: {
+                email: 'invalid_email@gmail.com',
+                password: 'invalid_password'
+            }
+        }
+        const httpResponse = sut.route(httpRequest)
+        expect(httpResponse.statusCode).toBe(401)
+        expect(httpResponse.body).toEqual(new UnauthorizedError('Unauthorized'))
     })
 })
