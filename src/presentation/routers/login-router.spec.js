@@ -1,4 +1,5 @@
 const MissingParamError = require("../helpers/missing-param-error")
+const InvalidParamError = require("../helpers/invalid-param-error")
 const ServerError = require("../helpers/server-error")
 const UnauthorizedError = require("../helpers/unauthorized-error")
 const LoginRouter = require("./login-router")
@@ -6,12 +7,25 @@ const LoginRouter = require("./login-router")
 //factory DesignPattern
 const makeSut = () => {
     const authUseCaseSpy = makeAuthUseCase()
+    const emailValidatorSpy = makeEmailValidator()
     authUseCaseSpy.accessToken = 'valid_token'
-    const sut = new LoginRouter(authUseCaseSpy)
+    const sut = new LoginRouter(authUseCaseSpy, emailValidatorSpy)
     return {
         sut,
-        authUseCaseSpy
+        authUseCaseSpy,
+        emailValidatorSpy
     }
+}
+
+const makeEmailValidator = () => {
+    class EmailValidatorSpy {
+        isValid (email) {
+            return this.isEmailValid
+        }
+    }
+    const emailValidatorSpy = new EmailValidatorSpy()
+    emailValidatorSpy.isEmailValid = true
+    return emailValidatorSpy
 }
 
 const makeAuthUseCase = () => {
@@ -153,10 +167,11 @@ describe('Login Router', () => {
     })
 
     test('Should return 400 if invalid email is provided', async () => {
-        const { sut } = makeSut()
+        const { sut, emailValidatorSpy } = makeSut()
+        emailValidatorSpy.isEmailValid = false
         const httpRequest = {
             body: {
-                email: 'invalid__email@mail.com',
+                email: 'invalid_email@mail.com',
                 password: 'any_password'
             }
         }
