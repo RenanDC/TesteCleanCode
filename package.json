@@ -4,9 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watch --colors --noStackTrace",
-    "test:staged": "jest --passWithNoTests --findRelatedTests --silent",
-    "test:ci": "jest --covarage --noStackTrace --silent"
+    "test": "jest --watchAll --colors --noStackTrace",
+    "test:unit": "npm test -- --passWithNoTests -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
+    "test:staged": "npm test -- --findRelatedTests --silent",
+    "test:ci": "npm test -- --covarage"
   },
   "repository": {
     "type": "git",
@@ -26,9 +28,7 @@
     }
   },
   "standard": {
-    "env": [
-      "jest"
-    ]
+    "env": ["jest"]
   },
   "author": "",
   "license": "ISC",
