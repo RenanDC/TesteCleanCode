@@ -247,7 +247,7 @@ describe('Auth UseCase', () => {
             new AuthUseCase({
                 loadUserByEmailRepository,
                 encrypter,
-                tokenGenerator
+                tokenGenerator: makeTokenGeneratorWithError()
             }),
             new AuthUseCase({
                 loadUserByEmailRepository,
